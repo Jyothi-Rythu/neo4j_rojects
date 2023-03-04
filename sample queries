@@ -1,0 +1,21 @@
+find out the most in demand skills:
+
+query = """
+MATCH (s:SKILLS)<-[:MENTIONS]-(o:Offer)
+RETURN s.name as skill, count(o) as freq
+ORDER BY freq DESC
+LIMIT 10
+"""
+res = neo4j_query(query)
+res
+
+skills that require that highest years of experiences
+
+query = """
+MATCH (s:SKILLS)--(r:Relation)--(e:EXPERIENCE) where r.type = "EXPERIENCE_IN"
+return s.name as skill,e.years as years
+ORDER BY years DESC
+LIMIT 10
+"""
+res = neo4j_query(query)
+res
